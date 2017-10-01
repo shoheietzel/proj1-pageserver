@@ -95,16 +95,18 @@ def respond(sock):
       options = get_options()
       filename = options.DOCROOT + parts[1]
 
-      invalid_end = [".html", ".css"]
-      if "~" or "//" in filename or not filename.endswith(tuple(invalid_end)):
+      valid_end = [".html", ".css"]
+      log.info("Filename: {}".format(filename))
+      if "//" in filename or "~" in filename or not filename.endswith(tuple(valid_end)):
         transmit(STATUS_FORBIDDEN, sock)
-      try:
-        f = open(filename, 'r')
-      except FileNotFoundError:
-        transmit(STATUS_NOT_FOUND, sock)
       else:
-        data = f.read().replace('\n', '')
-        transmit(data, sock)
+        try:
+          f = open(filename, 'r')
+        except FileNotFoundError:
+          transmit(STATUS_NOT_FOUND, sock)
+        else:
+          data = f.read().replace('\n', '')
+          transmit(data, sock)
 
   else:
     log.info("Unhandled request: {}".format(request))
