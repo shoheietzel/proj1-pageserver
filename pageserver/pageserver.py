@@ -89,12 +89,22 @@ def respond(sock):
 
   if len(parts) > 1 and parts[0] == "GET":
     transmit(STATUS_OK, sock)
-    if parts[1] != "/favicon.ico":
+    if parts[1] == "/favicon.ico":
+      pass
+    else:
       options = get_options()
       filename = options.DOCROOT + parts[1]
-      with open(filename, 'r') as f:
+
+      invalid_end = [".html", ".css"]
+      if "~" or "//" in filename or not filename.endswith(tuple(invalid_end)):
+        transmit(STATUS_FORBIDDEN, sock)
+      try:
+        f = open(filename, 'r')
+      except FileNotFoundError:
+        transmit(STATUS_NOT_FOUND, sock)
+      else:
         data = f.read().replace('\n', '')
-      transmit(data, sock)
+        transmit(data, sock)
 
   else:
     log.info("Unhandled request: {}".format(request))
