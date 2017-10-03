@@ -89,24 +89,24 @@ def respond(sock):
 
   if len(parts) > 1 and parts[0] == "GET":
     transmit(STATUS_OK, sock)
-    if parts[1] == "/favicon.ico":
+    if parts[1] == "/favicon.ico":   #do nothing in response to request for favicon
       pass
     else:
-      options = get_options()
+      options = get_options()   #allows access to DOCROOT
       filename = options.DOCROOT + parts[1]
 
       valid_end = [".html", ".css"]
       log.info("Filename: {}".format(filename))
       if "//" in filename or "~" in filename or not filename.endswith(tuple(valid_end)):
-        transmit(STATUS_FORBIDDEN, sock)
-      else:
+        transmit(STATUS_FORBIDDEN, sock)   #checks for forbidden sequences/invalid file extensions
+      else:                              #if pass, check if file exists
         try:
           f = open(filename, 'r')
-        except FileNotFoundError:
+        except FileNotFoundError:        #catch error, transmit 404 Error
           transmit(STATUS_NOT_FOUND, sock)
         else:
           data = f.read().replace('\n', '')
-          transmit(data, sock)
+          transmit(data, sock)           #transmit file to client if file found
 
   else:
     log.info("Unhandled request: {}".format(request))
