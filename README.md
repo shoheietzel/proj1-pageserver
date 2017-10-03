@@ -1,9 +1,27 @@
 # README #
-## Author: Shohei Etzel , sse@uoregon.edu ##
+### Author: Shohei Etzel , sse@uoregon.edu ###
+
+### Summary ###
 
 A "getting started" project for CIS 322, introduction to software
 engineering,  at University of Oregon.
 Simulates a simple web server that can be accessed by a simple client.
+
+
+### How program should be run ###
+
+  ~~~~
+  git clone <yourGitRepository> <targetDirectory>
+  cd <targetDirectory>
+  make install
+  make run
+  ~~~~
+  *test it with a browser now, while your server is
+  running in a background process*
+
+  ~~~~
+  make kill
+  ~~~~
 
 ### What is this repository for? ###
 
@@ -30,29 +48,6 @@ The objectives of this mini-project are:
   know if the Ubuntu/bash environment is suitable for CIS 322
   develpment.
 
-### How program should be run ###
 
-  ~~~~
-  git clone <yourGitRepository> <targetDirectory>
-  cd <targetDirectory>
-  make install
-  make run
-  ~~~~
-  *test it with a browser now, while your server is
-  running in a background process*
-
-  ~~~~
-  make kill
-  ~~~~
-
-* Check and revise your "credentials/credentials.ini" file.  My
-  grading robots will read this. Be precise. My grading robots
-  are not very good at guessing what you meant to write.  Try
-  it with the auto-checker to be sure.
-* Turn in the credentials.ini file in Canvas.  My grading robots will
-  use this file to access your github repository.
-
-### Who do I talk to? ###
 
 * Maintained by Michal Young, michal@cs.uoregon.edu
-* Use our Piazza group for questions. Make them public (anonymous or not as you prefer) unless you have a good reason to make them private, so that everyone benefits from answers and discussion.
